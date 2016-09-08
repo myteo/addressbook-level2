@@ -65,6 +65,9 @@ public class Name {
 	if(other == null){
 	    return false;
 	}
+	if(this.fullName.equalsIgnoreCase(other.fullName)){
+	    return true;
+	}
 	return this.fullName.equals(other.fullName);
     }
 
