@@ -2,6 +2,7 @@ package seedu.addressbook.data.person;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -65,10 +66,28 @@ public class Name {
 	if(other == null){
 	    return false;
 	}
+	else if(this.fullName.equals(other.fullName)){
+	    return true;
+	}
 	if(this.fullName.equalsIgnoreCase(other.fullName)){
 	    return true;
 	}
-	return this.fullName.equals(other.fullName);
+	boolean isSame = false;
+	String[] a = this.fullName.split(" ");
+	String[] b = this.fullName.split(" ");
+	List<String> ab = Arrays.asList(a);
+	List<String> cd = Arrays.asList(b);
+	ab.sort(null);
+	cd.sort(null);
+	if(ab.size() == cd.size()){
+	    isSame = true;
+	    for(int i = 0; i < ab.size(); i++){
+		if(!(ab.get(i).equals(cd.get(i))))
+		    isSame = false;
+	    }
+	}
+	return isSame;
+	
     }
 
 }

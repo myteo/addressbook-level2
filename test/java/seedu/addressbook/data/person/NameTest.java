@@ -30,8 +30,8 @@ public class NameTest {
 
     @Test
     public void names_inDifferentOrder() throws IllegalValueException {
-	Name personOne = new Name("Doe John");
-	Name personTwo = new Name("John Doe");
+	Name personOne = new Name("Doe John Kim");
+	Name personTwo = new Name("John Kim Doe");
 	assertTrue(personOne.isSimilar(personTwo));
     }
 }
