@@ -22,10 +22,16 @@ public class NameTest {
     }
     
     @Test
-    public void names_AreDifferentCase() throws IllegalValueException {
+    public void names_areDifferentCase() throws IllegalValueException {
 	Name personOne = new Name("John Doe");
 	Name personTwo = new Name("jOHN DOE");
 	assertTrue(personOne.isSimilar(personTwo));
     }
 
+    @Test
+    public void names_inDifferentOrder() throws IllegalValueException {
+	Name personOne = new Name("Doe John");
+	Name personTwo = new Name("John Doe");
+	assertTrue(personOne.isSimilar(personTwo));
+    }
 }
