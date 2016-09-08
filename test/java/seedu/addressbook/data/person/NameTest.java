@@ -20,5 +20,12 @@ public class NameTest {
 	Name personOne = new Name("John Doe");
 	assertFalse(personOne.isSimilar(null));
     }
+    
+    @Test
+    public void names_AreDifferentCase() throws IllegalValueException {
+	Name personOne = new Name("John Doe");
+	Name personTwo = new Name("jOHN DOE");
+	assertTrue(personOne.isSimilar(personTwo));
+    }
 
 }
