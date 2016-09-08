@@ -12,7 +12,13 @@ public class NameTest {
     public void names_areEqual() throws IllegalValueException {
 	Name personOne = new Name("John Doe");
 	Name personTwo = new Name("John Doe");
-	assertEquals(true, personOne.isSimilar(personTwo));
+	assertTrue(personOne.isSimilar(personTwo));
+    }
+    
+    @Test
+    public void otherName_isNull() throws IllegalValueException {
+	Name personOne = new Name("John Doe");
+	assertFalse(personOne.isSimilar(null));
     }
 
 }
