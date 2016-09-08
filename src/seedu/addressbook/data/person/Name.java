@@ -65,36 +65,30 @@ public class Name {
     }
 
     public boolean isSimilar(Name other) {
-	if(other == null){
+	if (other == null) {
 	    return false;
-	}
-	else if(this.fullName.equals(other.fullName)){
+	} else if (this.fullName.equals(other.fullName)) {
 	    return true;
-	}
-	else if(this.fullName.equalsIgnoreCase(other.fullName)){
+	} else if (this.fullName.equalsIgnoreCase(other.fullName)) {
 	    return true;
-	}
-	else if(this.fullName.contains(other.fullName) || 
-		other.fullName.contains(this.fullName)){
+	} else if (this.fullName.contains(other.fullName) || other.fullName.contains(this.fullName)) {
 	    return true;
-	}
-	else {
-	    boolean isSame = false;
-	String[] a = this.fullName.split(" ");
-	String[] b = this.fullName.split(" ");
-	List<String> ab = Arrays.asList(a);
-	List<String> cd = Arrays.asList(b);
-	ab.sort(null);
-	cd.sort(null);
-	if(ab.size() == cd.size()){
-	    isSame = true;
-	    for(int i = 0; i < ab.size(); i++){
-		if(!(ab.get(i).equals(cd.get(i))))
-		    isSame = false;
+	} else {
+	    boolean isSimilar = false;
+	    String[] splitWordsThis = this.fullName.split(" ");
+	    String[] splitWordsOther = other.fullName.split(" ");
+	    List<String> wordListThis = Arrays.asList(splitWordsThis);
+	    List<String> wordListOther = Arrays.asList(splitWordsOther);
+	    wordListThis.sort(null);
+	    wordListOther.sort(null);
+	    if (wordListThis.size() == wordListOther.size()) {
+		isSimilar = true;
+		for (int i = 0; i < wordListThis.size(); i++) {
+		    if (!(wordListThis.get(i).equals(wordListOther.get(i))))
+			isSimilar = false;
+		}
 	    }
+	    return isSimilar;
 	}
-	return isSame;
-	
-    }
     }
 }
