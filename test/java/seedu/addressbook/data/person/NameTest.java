@@ -34,4 +34,18 @@ public class NameTest {
 	Name personTwo = new Name("John Kim Doe");
 	assertTrue(personOne.isSimilar(personTwo));
     }
+    
+    @Test
+    public void otherName_isSubset() throws IllegalValueException {
+	Name personOne = new Name("Abraham Lincoln");
+	Name personTwo = new Name("Abra");
+	assertTrue(personOne.isSimilar(personTwo));
+    }
+    
+    @Test
+    public void otherName_isSuperset() throws IllegalValueException {
+	Name personOne = new Name("Abra");
+	Name personTwo = new Name("Abraham Lincoln");
+	assertTrue(personOne.isSimilar(personTwo));
+    }
 }
