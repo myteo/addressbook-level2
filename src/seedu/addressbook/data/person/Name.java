@@ -12,89 +12,85 @@ import java.util.List;
  */
 public class Name {
 
-    public static final String EXAMPLE = "John Doe";
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Person names should be spaces or alphabetic characters";
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alpha} ]+";
+	public static final String EXAMPLE = "John Doe";
+	public static final String MESSAGE_NAME_CONSTRAINTS = "Person names should be spaces or alphabetic characters";
+	public static final String NAME_VALIDATION_REGEX = "[\\p{Alpha} ]+";
 
-    public final String fullName;
+	public final String fullName;
 
-    /**
-     * Validates given name.
-     *
-     * @throws IllegalValueException
-     *             if given name string is invalid.
-     */
-    public Name(String name) throws IllegalValueException {
-	name = name.trim();
-	if (!isValidName(name)) {
-	    throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
+	/**
+	 * Validates given name.
+	 *
+	 * @throws IllegalValueException
+	 *             if given name string is invalid.
+	 */
+	public Name(String name) throws IllegalValueException {
+		name = name.trim();
+		if (!isValidName(name)) {
+			throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
+		}
+		this.fullName = name;
 	}
-	this.fullName = name;
-    }
 
-    /**
-     * Returns true if a given string is a valid person name.
-     */
-    public static boolean isValidName(String test) {
-	return test.matches(NAME_VALIDATION_REGEX);
-    }
-
-    /**
-     * Retrieves a listing of every word in the name, in order.
-     */
-    public List<String> getWordsInName() {
-	return Arrays.asList(fullName.split("\\s+"));
-    }
-
-    @Override
-    public String toString() {
-	return fullName;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-	return other == this // short circuit if same object
-		|| (other instanceof Name // instanceof handles nulls
-			&& this.fullName.equals(((Name) other).fullName)); // state
-									   // check
-    }
-
-    @Override
-    public int hashCode() {
-	return fullName.hashCode();
-    }
-
-    public boolean isSimilar(Name other) {
-	if(other == null){
-	    return false;
+	/**
+	 * Returns true if a given string is a valid person name.
+	 */
+	public static boolean isValidName(String test) {
+		return test.matches(NAME_VALIDATION_REGEX);
 	}
-	else if(this.fullName.equals(other.fullName)){
-	    return true;
+
+	/**
+	 * Retrieves a listing of every word in the name, in order.
+	 */
+	public List<String> getWordsInName() {
+		return Arrays.asList(fullName.split("\\s+"));
 	}
-	else if(this.fullName.equalsIgnoreCase(other.fullName)){
-	    return true;
+
+	@Override
+	public String toString() {
+		return fullName;
 	}
-	else if(this.fullName.contains(other.fullName) || 
-		other.fullName.contains(this.fullName)){
-	    return true;
+
+	@Override
+	public boolean equals(Object other) {
+		return other == this // short circuit if same object
+				|| (other instanceof Name // instanceof handles nulls
+						&& this.fullName.equals(((Name) other).fullName)); // state
+		// check
 	}
-	else {
-	    boolean isSame = false;
-	String[] a = this.fullName.split(" ");
-	String[] b = this.fullName.split(" ");
-	List<String> ab = Arrays.asList(a);
-	List<String> cd = Arrays.asList(b);
-	ab.sort(null);
-	cd.sort(null);
-	if(ab.size() == cd.size()){
-	    isSame = true;
-	    for(int i = 0; i < ab.size(); i++){
-		if(!(ab.get(i).equals(cd.get(i))))
-		    isSame = false;
-	    }
+
+	@Override
+	public int hashCode() {
+		return fullName.hashCode();
 	}
-	return isSame;
-	
-    }
-    }
+
+	/**
+	 * Return true if names are similar
+	 */
+	public boolean isSimilar(Name other) {
+		if (other == null) {
+			return false;
+		}
+		String name = fullName.toLowerCase();
+		String nameOther = other.fullName.toLowerCase();
+		if (name.equals(nameOther)) {
+			return true;
+		} else if (name.contains(nameOther) || nameOther.contains(name)) {
+			return true;
+		} else {
+			boolean isSimilar = false;
+			List<String> splitWords = getWordsInName();
+			List<String> splitWordsOther = other.getWordsInName();
+			splitWords.sort(null);
+			splitWordsOther.sort(null);
+			if (splitWords.size() == splitWordsOther.size()) {
+				isSimilar = true;
+				for (int i = 0; i < splitWords.size(); i++) {
+					if (!(splitWords.get(i).equals(splitWordsOther.get(i))))
+						isSimilar = false;
+				}
+			}
+			return isSimilar;
+		}
+	}
 }
